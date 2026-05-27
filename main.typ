@@ -1,123 +1,76 @@
-
-Unité 1
-
-
-- Etape 5 et 6 de calcul d'adresses à revoir.
-
 ETENDUE RESEAU :
-PAN | LAN |  MAN |  WAN
-Bluetooth, NFC (Paiement sans contact), Dongle (dispositif USB connecté à un autre outil) | Ethernet (RJ45), Wi-Fi (lien machine routeur) | WiMAX (WiFi d'une ville), Metro Ethernet | Internet, Conexion satellite (TV), 4G / 5G
-- Fibre multimode vs Monomode
+#table(
+  columns: 4,
+  [*PAN*], [*LAN*], [*MAN*], [*WAN*],
+  [Bluetooth, NFC (paiement sans contact), Dongle], [Ethernet (RJ45), Wi-Fi (lien machine routeur)], [WiMAX (WiFi d'une ville), Metro Ethernet], [Internet, Connexion satellite (TV), 4G / 5G],
+)
+
+FIBRES OPTIQUES : 
+#table(columns: 3,
+[*CAT*],[*Multimode*], [*Monomode*],
+[*PORTEE*],[2.5KM], [100KM],
+[*NOYAU*], [Plus large], [Plus petit]
+)
 - TOPOLOGIE :
-PàP | Etoile | Maillé | Bus | Anneau
-A -> B | Serveur central avec toute les machines autours | Toute les machines entre elles | Lien central ou toute les machines sont reliées | Machine reliées en boucle
-Transfert de donnée simple | infrastructure réseau privé (PME) | Internet | Réseau d'alarme et de sécurité (ancêtre pour les réseau informatique, plus utilisé aujourd'hui) | Backbone (réseau qui interconnecte plusieurs infrastructures)
-- Structure d'un réseau
-Noyau | Distribution | Accès
-Relie les gros morceaux du réseau | Envoi vers les bons secteurs | Les machines
+#table(
+  columns: 5,
+  [*PàP*], [*Étoile*], [*Maillé*], [*Bus*], [*Anneau*],
+  [$A -> B$], [Serveur central,  machines autour], [Tout interconnecté], ["Autoroute" tout est connecté], [Machines reliées en boucle],
+  [Transfert de données simple], [Infrastructure réseau privés], [Internet], [Réseau d'alarme et sécurité], [Backbone (réseau qui interconnecte plusieurs infrastructures)],
+)
 
-CIDR : OCTECT.OCTET.OCTET.OCTET / NOMBRES DE BITS FIXÉS À 1
-= Annexe
+- STRUCTURE D'UN RESEAU : 
+#table(columns: 3,
+[*Noyau*],  [*Distribution*], [*Accès*],
+[Relie les gros morceaux du réseau], [Envoi vers les bons secteurs], [Les machines],
+)
 
-Calcule d'adresse IP
+- CIDR : OCTECT.OCTET.OCTET.OCTET / NOMBRES DE BITS FIXÉS À 1 (bits vérouillés)
 
-1. Nbr de SR (sous-réseau) et nbr d'adresse IP (nombre de machines connectées au réseau)
-  - Besoins +10%
-2. Nombre de bits (nSR et nIP)
-  - nSR =$frac("ln(SR)", "ln(2)")$
+- NOMBRE DE BITS POUR HOSTS IP ET SOUS-RESEAUX SR :
+#table(columns: 2,
+[*BITS*], [*FORMULES*],
+[nSR], [$frac("ln(SR)", "ln(2)")$],
+[nIP],[$frac("ln(IP+2)", "ln(2)")$],
+)
 
-  - nIP =$frac("ln(IP+2)", "ln(2)")$
-3. Classe de Net_ID
-- A -> 16Mi machines
-- B -> 65K machines
-- C ->  254 machines
-4. Masque du réseau
-- A -> 255.0.0.0/8
-- B -> 255.255.0.0/16
-- C -> 255.255.255.0/24
-5. Adreses du sous réseau.
-- Basé sur le nombre de bits :
-- On passe les bits reservé tous à 0 -> IPSR
-- On compte un peu en binaire sur les bits reservés.
-- On passe les bits reservé tous à 1 -> Broadcast
-- On ne sépare pas les deux sous-réseau pour l'étape d'après.
-6. Tableau annuaire pour chaque IP.
-IP Sous-réseau | 1ere IP utilisable | dernière IP utilisable | Broadcast |
-Bits reservé SR tous à 0 | IPSR + 1 | Broadcast -1 | Bits reservés SR tous à 1
+-  CLASSE D'ADRESSE IP CLASSFULL : 
 
-
-
-Unité 2
-
-Modèles OSI, 7 couches :
-
-7. Application (le code qu'on run)
-6. Présentation (Les données qu'on va utiliser dans l'application)
-5. Session
-4. Transports
-3. Réseau
-2. Liaison
-1. Physique
-
-1. Physiques
-
-Là ou vont passer les données. (Câbles, Hub), ici elles circulent juste, mais elles vont encore nullepart précisemment, rien n'est connectés !
-
-Equipement : Hub, Repeteur, Modem
-Supports : Paires torsadées, Fibre optique, Cable coaxial
-Connecteurs : RJ45
-
-2. Liaison
-Là ou on va commencer à brancher tous les câbles (Switch, adresse MAC), c'est le moment ou les données vont vraiment passer d'une machine à l'autre.
-Equipement : Switch, Pont
-Adressage : Adresse MAC (identifiant unique sur 48bits de la carte réseau machine)
-Protocoles et normes : Ethernet (802.3) Wifi (802.11), ARP
-
-Tech : Switch, protocoles Ethernet
-3. Réseau
-
-Les machines sont toute liées, géniale... Maintenant si on veut liée des structure pour se simplifier la vie, on intègre cette troisième couche.
-C'est plus une machine A à une machine B, c'est une structure de machine A à une structure de machine B !
-
-Equipement : Routeur
-Adressage: IPv4, masque sous réseau
-
-4. Transport
-On check que les données passent bien comme il faut dans la forme qu'on veut, on se contente plus de les faire passer de manière plus complexe, mais de les faire passer de la FACON donto n veut.
-
-5. Session
-Autorisation des UTILISATEURS ! On passe des données,  du brute, aux utilisateurs de manière progressive.
-
-6: Présentation
-On met en forme les données pour que ce soit compréhensible par l'humain, c'est le moment ou on voit moins d'abstraction vis a vis du language humain
-
-7. Application
-C'est l'outil utilisé par nous, l'utilisateur etc. Là, on utilise les données et toute la structure qu'il y a derrière en backend pour pouvoir par exemple, enregistrer un formulaire.
-C'est la face avant facile à utiliser du modèle OSI.
-
-Protocole : DNS, DHCP, Firewall
-Note : Couche 2 (liaison) -> Generateur sur machine directement
-Couche 3 (réseau) -> Generateur sur commutateur d'energie sur plein d'autre machines, reliées potentiellement à d'autre machine codépendante
-
-Tout est dans la complexité.
+#table(columns:2 ,
+[*CLASSE*], [*MASQ/16UES*],
+[*A*],[255.0.0.0/8],
+[*B*],[255.255.0.0/16],
+[*C*],[255.255.255.0/24],
+)
+- TABLEAU D'ADRESSAGE
+#table(columns: 4,
+[*IP SOUS-RESEAU*], [*PREMIERE IP UTIL.*], [*DERNIERE IP UTIL.*],[*BROADCAST*],
+[Calculés], [IP sous-réseau + 1], [IP Broadcast - 1], [Dernière adresse si on remplis tous les bits de l'hôte],
+) 
+Modèle OSI, 7 couches :
+#table(
+  columns: 3,
+  [*Nom*], [*Ce qu'elle concerne*], [*Exemples*],
+  [1. Physique], [Support physique de transmission des bits (câbles, connecteurs)], [Hub, Répéteur, Modem, RJ45, Fibre optique],
+  [2. Liaison], [Adressage MAC, passage des données d'une machine à l'autre], [Switch, Pont, Ethernet (802.3), ARP],
+  [3. Réseau], [Acheminement entre réseaux, adressage logique], [Routeur, IPv4, Masque de sous-réseau],
+  [4. Transport], [Contrôle du flux et fiabilité de la transmission], [TCP, UDP],
+  [5. Session], [Gestion et autorisation des sessions entre applications], [NetBIOS, RPC],
+  [6. Présentation], [Formatage des données pour les rendre compréhensibles], [TLS/SSL, JPEG, ASCII],
+  [7. Application], [Interface utilisateur et services réseau], [DNS, DHCP, HTTP, Firewall],
+)
 
 On rajoute au final des pièces de légo au puzzle.
 
 CABLES :
-
-C'est la partie chiante par coeur, faire court :
-
-TP = Twisted pair
-U = Unshielded
-F = Foiled
-S = Shieleded
-
-Les normes qui existent
-
-UTP -> Pas protégés, souples
-FTP -> Feuille d'alu pour le blindage -> Passer dans les murs
-STP -> Blindage par tresse, plus flexibles
-SFTP -> Gold, mélange du S et du F, c'est ultra solide.
+#table(
+  columns: 3,
+  [*Nom*], [*Constitution*], [*Utilisation*],
+  [UTP], [Pas de blindage (Unshielded Twisted Pair)], [Souple, usage bureautique classique],
+  [FTP], [Feuille d'alu globale (Foiled Twisted Pair)], [Passer dans les murs],
+  [STP], [Blindage par tresse (Shielded Twisted Pair)], [Flexible, environnements avec interférences],
+  [SFTP], [Tresse + feuille d'alu (Shielded & Foiled)], [Ultra solide, extérieur / zones sensibles],
+)
 
 Diff switch et Hub
 
