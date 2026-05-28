@@ -25,6 +25,25 @@ FIBRES OPTIQUES :
 [Relie les gros morceaux du réseau], [Envoi vers les bons secteurs], [Les machines],
 )
 
+- TRAME ETHERNET :
+#stack(dir: ltr,
+  spacing: 0pt,
+  rect(width: 2.5em, height: 3em, fill: rgb("FFB5B5"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*Préambule*
+7 o]],
+  rect(width: 1em, height: 3em, fill: rgb("FFD699"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*SFD*
+1 o]],
+  rect(width: 2.5em, height: 3em, fill: rgb("B5FFB5"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*MAC Dest.*
+6 o]],
+  rect(width: 2.5em, height: 3em, fill: rgb("B5B5FF"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*MAC Src.*
+6 o]],
+  rect(width: 1.5em, height: 3em, fill: rgb("D8B5D8"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*E/T*
+2 o]],
+  rect(width: 14em, height: 3em, fill: rgb("E8E8E8"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*Données (Payload)*
+46-1500 o]],
+  rect(width: 2em, height: 3em, fill: rgb("FFB5D8"), inset: 2pt, stroke: 0.3pt + black)[#align(center + horizon)[*FCS*
+4 o]],
+)
+
 - CIDR : OCTECT.OCTET.OCTET.OCTET / NOMBRES DE BITS FIXÉS À 1 (bits vérouillés)
 
 - NOMBRE DE BITS POUR HOSTS IP ET SOUS-RESEAUX SR :
@@ -51,7 +70,7 @@ Modèle OSI, 7 couches :
 #table(
   columns: 3,
   [*Nom*], [*Ce qu'elle concerne*], [*Exemples*],
-  [1. Physique], [Support physique de transmission des bits (câbles, connecteurs)], [Hub, Répéteur, Modem, RJ45, Fibre optique],
+  [1. Physique], [Support physique de transmission des bits (câbles, connecteurs)], [Hub, Répéteur, Modem, Fibre optique],
   [2. Liaison], [Adressage MAC, passage des données d'une machine à l'autre], [Switch, Pont, Ethernet (802.3), ARP],
   [3. Réseau], [Acheminement entre réseaux, adressage logique], [Routeur, IPv4, Masque de sous-réseau],
   [4. Transport], [Contrôle du flux et fiabilité de la transmission], [TCP, UDP],
@@ -60,7 +79,6 @@ Modèle OSI, 7 couches :
   [7. Application], [Interface utilisateur et services réseau], [DNS, DHCP, HTTP, Firewall],
 )
 
-On rajoute au final des pièces de légo au puzzle.
 
 CABLES :
 #table(
@@ -71,48 +89,40 @@ CABLES :
   [STP], [Blindage par tresse (Shielded Twisted Pair)], [Flexible, environnements avec interférences],
   [SFTP], [Tresse + feuille d'alu (Shielded & Foiled)], [Ultra solide, extérieur / zones sensibles],
 )
+- SWITCH VS HUB :
+  - HUB : Envoie les données à tout le monde, et regarde qui a demandé après.
+  - SWITCH : Le switch sait déjà qui lui a envoyé l'info ou la requête, et lui renvoie au bon endroit.
 
-Diff switch et Hub
+- PROTOCOLES ET TERMES :
+#table(
+  columns: 2,
+  [*Terme*], [*Définition*],
+  [TCP/IP], [Modèle de référence simplifié en 4 couches (Application, Transport, Internet, Interface réseau) utilisé pour illustrer la communication entre les systèmes.],
+  [Modèle OSI], [Modèle théorique à 7 couches décrivant l'ensemble des fonctions nécessaires à la communication réseau, de la transmission physique à l'application utilisateur.],
+  [IP], [Système de numérotation structuré servant à identifier les utilisateurs d'un réseau et à acheminer les paquets d'informations via le processus de « routage ».],
+  [DNS], [Service essentiel qui traduit les noms de domaines (ex: google.com) en adresses IP compréhensibles par les machines.],
+  [DHCP], [Protocole qui distribue automatiquement des adresses IP aux machines du réseau sous forme de baux (leases).],
+  [ARP], [Protocole effectuant la correspondance entre une adresse IP logique et l'adresse physique MAC d'une machine.],
+  [Adresse MAC], [Identifiant physique unique au monde, gravé sur chaque interface réseau, utilisé par le commutateur (Switch) pour diriger les données.],
+  [NAT], [Service permettant de traduire les adresses IP privées d'un réseau local en une adresse IP publique pour accéder à Internet.],
+  [NET_ID / SUBNET_ID / HOST_ID], [Les trois segments constitutifs d'une adresse IP segmentée identifiant respectivement le réseau parent, le sous-réseau interne et la machine spécifique.],
+  [LLC], [Partie supérieure de la couche 2 OSI assurant le contrôle de la liaison logique indépendamment du matériel.],
+  [PAN / LAN / MAN / WAN], [Classifications géographiques des réseaux, allant de l'échelle personnelle (PAN) au réseau mondial (WAN/Internet).],
+  [FCS], [Séquence de contrôle située à la fin d'une trame Ethernet pour vérifier l'absence d'erreurs de transmission.],
+)
 
-Hub c'est naze, Switch c'est bien
+- CATÉGORIES DE CÂBLES :
+#table(
+  columns: 6,
+  [*Catégorie*], [*Classe*], [*Fréquence max.*], [*Débit max.*], [*Longueur max.*], [*Connecteur*],
+  [Cat. 5], [D], [100 MHz], [1 Gbit/s], [100 m], [RJ45],
+  [Cat. 6], [E], [250 MHz], [1 Gbit/s], [100 m], [RJ45],
+  [Cat. 6A], [EA], [500 MHz], [10 Gbit/s], [100 m], [RJ45],
+  [Cat. 7], [F], [600 MHz], [10 Gbit/s], [100 m], [Autre que RJ45],
+  [Cat. 7a], [FA], [1 GHz (1000 MHz)], [10 Gbit/s], [100 m], [Autre que RJ45],
+  [Cat. 8.1], [I], [2 GHz (2000 MHz)], [40 Gbit/s (y compris 25)], [30 m], [RJ45],
+  [Cat. 8.2], [II], [2 GHz (2000 MHz)], [40 Gbit/s (y compris 25)], [30 m], [Autre que RJ45],
+)
 
-Tqt
+*Câble coaxial* : utilisé historiquement pour l'Ethernet (10Base5 et 10Base2 à 10 Mbit/s) et aujourd'hui pour les hautes fréquences et les antennes.
 
-Trame 802.3
-
-Préambule (7 octets) : Pour synchroniser les horloges.
-Délimiteur de début : Signale le début réel des données.
-Adresses Destination & Source : Les adresses MAC des machines. (destinataire et destination)
-Données LLC : Le message lui-même.
-FCS (Frame Check Sequence) : Un code de 4 octets pour vérifier que la trame n'a pas été corrompue durant le transport.
-
-Préambule -> Sync des horloges, les machines sont pas à la même vitesse, donc on sync tout ça
-Delimiteur début -> "HEy, c'est là que la donnée commence, lis à partir de là" !
-Adresse, destination / sources : Adresses MAC desdeux machines
-Données LLC : Le message, les données telle quelles
-FCS : C'est un petit check en plus pour avoir une trame entière et qui fonctionne et se transmet comme on veut.
-
-Bridge :
-
-Littéralement un pont, comme quand on relie deux villes, switch -> Multipont sur plusieurs villes (Centre qui a plein de pont vers plein de ville)
-
-Domaine de collision et de diffusion :
-
-Collision : Domaine de limite, frontière des réseaux
-Diffusion : Là ou le message se diffuse et se partage !
-
-
-Unité X :
-
-RFC950
-Synthès
-
-Unité X :
-
-RFC950 :
-Ce que j'ai bien compris : CIDR, PAN LAN MAN WAN
-
-Ce que je souhaite revoir mais que je comprend facilement : Technologies, Mono et multimode, Topologies, IP, EMacs
-
-Ce que je pense essentiel de revoir assez rapidement : Les problèmes d'adressage IP, les Protocoles et modèles (OSI, TCP IP) RFC950
-RFC950
