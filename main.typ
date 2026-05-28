@@ -37,6 +37,8 @@ FIBRES OPTIQUES :
 [*C*],[255.255.255.0/24],
 )],
 )
+#stack(dir: ltr, spacing: 1em,
+[
 Modèle OSI, 7 couches :
 #table(columns: 3, inset: 4pt,
 [*Nom*], [*Ce qu'elle concerne*], [*Exemples*],
@@ -47,6 +49,24 @@ Modèle OSI, 7 couches :
 [5. Session], [Gestion et autorisation des sessions entre applications], [NetBIOS, RPC],
 [6. Présentation], [Formatage des données pour les rendre compréhensibles], [TLS/SSL, JPEG, ASCII],
 [7. Application], [Interface utilisateur et services réseau], [DNS, DHCP, HTTP, Firewall],
+)
+],
+[
+Modèle TCP/IP, 4 couches :
+#table(columns: 2, inset: 4pt,
+[*Couche*], [*Protocoles*],
+[Application], [HTTP, DNS, DHCP, TLS],
+[Transport], [TCP, UDP],
+[Internet], [IP, ARP, ICMP],
+[Interface réseau], [Ethernet, Wi-Fi, ARP],
+)
+],
+)
+- TCP vs UDP :
+#table(columns: 3, inset: 4pt,
+[*Protocole*], [*Caractéristique*], [*Usage*],
+[TCP], [Fiable, connexion, ordre], [Web, Mail, FTP],
+[UDP], [Rapide, sans connexion], [Streaming, DNS, VoIP],
 )
 CABLES :
 #table(columns: 3, inset: 4pt,
@@ -59,10 +79,10 @@ CABLES :
 - SWITCH VS HUB :
   - HUB : Envoie les données à tout le monde, et regarde qui a demandé après.
   - SWITCH : Le switch sait déjà qui lui a envoyé l'info ou la requête, et lui renvoie au bon endroit.
+- CSMA/CD (Ethernet) : Écoute avant d'émettre (CSMA). Si collision → attend un temps aléatoire avant de réémettre (CD). Utilisé en half-duplex.
 - PROTOCOLES ET TERMES :
 #table(columns: 2, inset: 4pt,
 [*Terme*], [*Définition*],
-[TCP/IP], [Modèle de référence simplifié en 4 couches (Application, Transport, Internet, Interface réseau) utilisé pour illustrer la communication entre les systèmes.],
 [IP], [Système de numérotation structuré servant à identifier les utilisateurs d'un réseau et à acheminer les paquets d'informations via le processus de « routage ».],
 [DNS], [Service essentiel qui traduit les noms de domaines (ex: google.com) en adresses IP compréhensibles par les machines.],
 [DHCP], [Protocole qui distribue automatiquement des adresses IP aux machines du réseau sous forme de baux (leases).],
